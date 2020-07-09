@@ -31,4 +31,16 @@ A docker container will be created and a bash shell is ready to go.
 
 ./run_task1.sh
 
-3.- Enjoy
+3.- Enjoy!
+
+4.- When you finish your revies, run:
+
+terraform destroy
+
+to eliminate all created infraestructure in this demo.
+
+5.- Run this command:
+
+exit
+
+to exit the docker container.
