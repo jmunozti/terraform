@@ -37,8 +37,5 @@ COPY modules /devops/modules
 COPY task1/ /devops/task1
 COPY task1/run_task1.sh/ /devops/task1
 
-RUN rm /devops/task1/terraform.tfstate* && \
-    rm -rf /devops/task1/.terraform
-
 # Define default command.
 CMD ["bash"]
