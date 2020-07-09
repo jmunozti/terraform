@@ -1,6 +1,6 @@
 # Terraform Task
 
-Terraform code that deploys a VPC, with a private subnet, a public subnet, an EC2 instance in the private subnet and a bastion host to access the EC2 instance via SSH in a secure way.
+Terraform code that deploys a VPC, with a private subnet, a public subnet, an EC2 instance into the private subnet and a bastion host to access the EC2 instance via SSH in a secure way.
 
 ## Requirements
 
