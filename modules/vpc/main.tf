@@ -21,9 +21,9 @@ resource "aws_route_table" "main" {
   vpc_id = var.vpc_id
 
   route {
-    cidr_block     = "0.0.0.0/0"
-    gateway_id     = aws_internet_gateway.main.id
-    nat_gateway_id = aws_nat_gateway.nat-gateway.id
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.main.id
+    #nat_gateway_id = aws_nat_gateway.nat-gateway.id
   }
 
   tags = {
@@ -64,4 +64,23 @@ resource "aws_eip" "eip" {
 resource "aws_nat_gateway" "nat-gateway" {
   allocation_id = aws_eip.eip.id
   subnet_id     = aws_subnet.public_subnet.id
+}
+
+resource "aws_route_table" "private-subnet" {
+  vpc_id = var.vpc_id
+
+  route {
+    cidr_block     = "0.0.0.0/0"
+    nat_gateway_id = aws_nat_gateway.nat-gateway.id
+  }
+
+  tags = {
+    Name = "Private-subnet-route-table"
+  }
+}
+
+resource "aws_route_table_association" "private-subnet" {
+  count          = 1
+  subnet_id      = aws_subnet.private_subnet.id
+  route_table_id = aws_route_table.private-subnet.id
 }

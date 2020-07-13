@@ -17,6 +17,15 @@ resource "aws_security_group_rule" "ssh" {
   from_port         = 22
   to_port           = 22
   type              = "ingress"
-  cidr_blocks       = [var.private_subnet_cidr]
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = aws_security_group.ec2.id
+}
+
+resource "aws_security_group_rule" "internet" {
+  protocol          = "-1"
+  from_port         = 0
+  to_port           = 0
+  type              = "egress"
+  cidr_blocks       = ["0.0.0.0/0"]
   security_group_id = aws_security_group.ec2.id
 }

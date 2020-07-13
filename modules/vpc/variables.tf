@@ -17,6 +17,11 @@ variable "public_subnet_cidr" {
   default     = "10.0.0.0/24"
 }
 
+variable "public_subnet_cidr2" {
+  description = "Defines a public subnet CIDR"
+  default     = "10.0.2.0/24"
+}
+
 variable "private_subnet_cidr" {
   description = "Defines a private subnet CIDR"
   default     = "10.0.1.0/24"

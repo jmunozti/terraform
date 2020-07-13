@@ -11,13 +11,10 @@ resource "aws_instance" "my_ec2" {
 #!/bin/bash
 #Sending /var/log/messages to CloudWatch because it records a variety of events,
 #such as the system error messages, system startups and shutdowns, change in the network configuration, etc.
-
+sudo yum update -y
 sudo yum install -y awslogs
-sudo service awslogs start
-sudo chkconfig awslogs on
-
-#Sending containers list to /var/log/messages
-logger $(docker ps -a)
+sudo systemctl start awslogsd
+sudo systemctl enable awslogsd.service
 EOF
 
   tags = {
