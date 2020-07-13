@@ -1,7 +1,7 @@
 resource "aws_security_group" "bastion" {
   name        = "Bastion host SG"
   description = "Allow SSH access to bastion host and outbound internet access"
-  vpc_id      = local.vpc_id
+  vpc_id      = data.aws_subnet.public.vpc_id
 
   lifecycle {
     create_before_destroy = true

@@ -1,11 +1,11 @@
 resource "aws_vpc" "main" {
   cidr_block           = var.vpc_cidr
   instance_tenancy     = var.tenancy
-  enable_dns_support   = true
-  enable_dns_hostnames = true
+  enable_dns_support   = var.enable_dns_support
+  enable_dns_hostnames = var.enable_dns_hostnames
 
   tags = {
-    Name = "main"
+    Name = "VPCStaging"
   }
 }
 
@@ -21,8 +21,9 @@ resource "aws_route_table" "main" {
   vpc_id = var.vpc_id
 
   route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.main.id
+    cidr_block     = "0.0.0.0/0"
+    gateway_id     = aws_internet_gateway.main.id
+    nat_gateway_id = aws_nat_gateway.nat-gateway.id
   }
 
   tags = {
@@ -54,4 +55,13 @@ resource "aws_subnet" "private_subnet" {
   tags = {
     Name = "Private Subnet"
   }
+}
+
+resource "aws_eip" "eip" {
+  vpc = true
+}
+
+resource "aws_nat_gateway" "nat-gateway" {
+  allocation_id = aws_eip.eip.id
+  subnet_id     = aws_subnet.public_subnet.id
 }

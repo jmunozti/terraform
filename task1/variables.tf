@@ -43,17 +43,3 @@ variable "ec2_count" {
   description = "Defines the number of EC2 instances"
   default     = "1"
 }
-
-//Local Values
-
-locals {
-  aws_region    = var.region
-  vpc_cidr      = var.vpc_cidr
-  public_cidr   = var.public_subnet_cidr
-  private_cidr  = var.private_subnet_cidr
-  tenancy       = var.tenancy
-  key_pair      = var.ssh_key
-  instance_type = var.instance_type
-  ami           = var.ami_id
-  ec2_count     = var.ec2_count
-}

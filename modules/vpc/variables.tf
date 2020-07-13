@@ -31,3 +31,10 @@ variable "availability_zone_2" {
   description = "Defines an Availability_zone to start the instance in"
   default     = "us-east-1b"
 }
+
+variable "enable_dns_support" {
+  default = true
+}
+variable "enable_dns_hostnames" {
+  default = true
+}

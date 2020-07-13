@@ -32,14 +32,5 @@ variable "ami_id" {
 }
 
 data "aws_subnet" "public" {
-  id = local.subnet_id
-}
-
-locals {
-  vpc_id        = data.aws_subnet.public.vpc_id
-  ami_id        = var.ami_id
-  disk_size     = var.disk_size
-  subnet_id     = var.subnet_id
-  ssh_key       = var.ssh_key
-  instance_type = var.instance_type
+  id = var.subnet_id
 }
