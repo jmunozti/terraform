@@ -19,14 +19,27 @@ module "bastion" {
   internal_networks = [var.private_subnet_cidr]
 }
 
-module "my_ec2_instance" {
+module "ec2" {
+  source        = "../modules/ec2"
   vpc_id        = module.vpc.vpc_id
   ami_id        = var.ami_id
   ssh_key       = var.ssh_key
-  source        = "../modules/ec2"
   ec2_count     = var.ec2_count
   instance_type = var.instance_type
   subnet_id     = module.vpc.private_subnet_id
+}
+
+module "asg" {
+  source              = "../modules/asg"
+  vpc_id              = module.vpc.vpc_id
+  ami_id              = var.ami_id
+  instance_type       = var.instance_type
+  ssh_key             = var.ssh_key
+  min_size            = var.min_size
+  max_size            = var.max_size
+  vpc_zone_identifier = module.vpc.private_subnet_id
+  health_check_type   = var.health_check_type
+  internal_networks   = [var.private_subnet_cidr]
 }
 
 terraform {

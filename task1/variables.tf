@@ -19,7 +19,6 @@ variable "public_subnet_cidr" {
   default     = "10.0.0.0/24"
 }
 
-
 variable "private_subnet_cidr" {
   description = "Defines a private subnet CIDR"
   default     = "10.0.1.0/24"
@@ -43,4 +42,22 @@ variable "ami_id" {
 variable "ec2_count" {
   description = "Defines the number of EC2 instances"
   default     = "1"
+}
+
+variable "min_size" {
+  description = "The minimum number of instances."
+  default     = 2
+}
+
+variable "max_size" {
+  description = "The maximum number of instances."
+  default     = 2
+}
+
+variable "vpc_zone_identifier" {
+  default = "List of subnet IDs to use."
+}
+
+variable "health_check_type" {
+  default = "EC2"
 }

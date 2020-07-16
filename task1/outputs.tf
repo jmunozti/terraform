@@ -11,5 +11,5 @@ output "bastion_public_dns" {
 }
 
 output "ec2_private_ip" {
-  value = module.my_ec2_instance.private_ip
+  value = module.ec2.private_ip
 }
