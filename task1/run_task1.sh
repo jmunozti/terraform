@@ -9,6 +9,7 @@ terraform fmt
 terraform init
 terraform plan
 terraform apply -input=false -auto-approve
+terraform graph | dot -Tsvg > graph.svg
 
 echo "============================================"
 echo "End"

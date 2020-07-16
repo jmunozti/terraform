@@ -22,6 +22,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN apt update && \
     apt install wget -y && \
     apt install zip -y && \
+    apt install graphviz -y && \    
     wget https://releases.hashicorp.com/terraform/0.12.24/terraform_0.12.24_linux_amd64.zip && \
     unzip terraform*.zip && \
     rm terraform*.zip && \
