@@ -34,3 +34,7 @@ variable "ami_id" {
 data "aws_subnet" "public" {
   id = var.subnet_id
 }
+
+variable "environment" {
+  default = "The Environment name to use."
+}

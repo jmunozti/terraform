@@ -5,7 +5,7 @@ resource "aws_vpc" "main" {
   enable_dns_hostnames = var.enable_dns_hostnames
 
   tags = {
-    Name = "VPCStaging"
+    Name = format("%s_vpc", var.environment)
   }
 }
 
@@ -13,7 +13,7 @@ resource "aws_internet_gateway" "main" {
   vpc_id = var.vpc_id
 
   tags = {
-    Name = "Internet Gateway"
+    Name = format("%s_ig", var.environment)
   }
 }
 
@@ -23,11 +23,10 @@ resource "aws_route_table" "main" {
   route {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.main.id
-    #nat_gateway_id = aws_nat_gateway.nat-gateway.id
   }
 
   tags = {
-    Name = "Route Table for Public Subnet"
+    Name = format("%s_public_subnet_route_table", var.environment)
   }
 }
 
@@ -43,7 +42,7 @@ resource "aws_subnet" "public_subnet" {
   availability_zone       = var.availability_zone_1
 
   tags = {
-    Name = "Public Subnet"
+    Name = format("%s_public_subnet", var.environment)
   }
 }
 
@@ -53,7 +52,7 @@ resource "aws_subnet" "private_subnet" {
   availability_zone = var.availability_zone_2
 
   tags = {
-    Name = "Private Subnet"
+    Name = format("%s_private_subnet", var.environment)
   }
 }
 
@@ -75,7 +74,7 @@ resource "aws_route_table" "private-subnet" {
   }
 
   tags = {
-    Name = "Private-subnet-route-table"
+    Name = format("%s_private_subnet_route_table", var.environment)
   }
 }
 

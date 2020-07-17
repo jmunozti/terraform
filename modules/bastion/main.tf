@@ -16,6 +16,6 @@ resource "aws_instance" "server" {
   }
 
   tags = {
-    Name = "Bastion host"
+    Name = format("%s_bastion_host", var.environment)
   }
 }

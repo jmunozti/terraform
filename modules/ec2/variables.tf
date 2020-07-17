@@ -33,3 +33,7 @@ variable "availability_zone_1" {
 variable "ssh_key" {
   description = "The key name of the Key Pair to use for the instance."
 }
+
+variable "environment" {
+  default = "The Environment name to use."
+}

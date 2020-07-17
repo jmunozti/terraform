@@ -61,3 +61,22 @@ variable "vpc_zone_identifier" {
 variable "health_check_type" {
   default = "EC2"
 }
+
+variable "environment" {
+  default = "The Environment name to use."
+}
+
+variable "elb_is_internal" {
+  default = false
+}
+
+data "aws_ami" "amazon-linux-2" {
+  most_recent = true
+
+  owners = ["amazon"]
+
+  filter {
+    name   = "name"
+    values = ["amzn2-ami-hvm*"]
+  }
+}
