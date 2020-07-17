@@ -24,7 +24,7 @@ module "bastion" {
 module "ec2" {
   source        = "../modules/ec2"
   vpc_id        = module.vpc.vpc_id
-  ami_id        = var.ami_id
+  ami_id        = data.aws_ami.amazon-linux-2.id
   ssh_key       = var.ssh_key
   ec2_count     = var.ec2_count
   instance_type = var.instance_type
@@ -43,7 +43,7 @@ module "elb" {
 module "asg" {
   source              = "../modules/asg"
   vpc_id              = module.vpc.vpc_id
-  ami_id              = var.ami_id
+  ami_id              = data.aws_ami.amazon-linux-2.id
   instance_type       = var.instance_type
   ssh_key             = var.ssh_key
   min_size            = var.min_size
