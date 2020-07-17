@@ -19,3 +19,8 @@ variable "internal" {
   description = "Defines if an ELB must be private or public."
   default     = false
 }
+
+variable "connection_draining" {
+  description = "Defines if the connection draining must be enabled or not"
+  default     = true
+}

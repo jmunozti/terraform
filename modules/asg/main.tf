@@ -1,23 +1,26 @@
 resource "aws_launch_configuration" "asg-launch-config" {
-  image_id        = var.ami_id
-  instance_type   = var.instance_type
-  security_groups = [aws_security_group.asg.id]
-  key_name        = var.ssh_key
-  #iam_instance_profile = "arn:aws:iam::005488327456:instance-profile/S3ReadOnlyAccess"
+  image_id             = var.ami_id
+  instance_type        = var.instance_type
+  security_groups      = [aws_security_group.asg.id]
+  key_name             = var.ssh_key
+  iam_instance_profile = "arn:aws:iam::005488327456:instance-profile/EC2"
 
   user_data = <<EOF
 #!/bin/bash
+sudo yum update -y
+
 #Installing nginx
-sudo yum install nginx
+sudo amazon-linux-extras install nginx1.12 -y
 sudo service nginx start
 sudo chkconfig nginx on
 
 #Sending /var/log/messages to CloudWatch because it records a variety of events,
 #such as the system error messages, system startups and shutdowns, change in the network configuration, etc.
-sudo yum update -y
 sudo yum install -y awslogs
 sudo systemctl start awslogsd
 sudo systemctl enable awslogsd.service
+
+logger $(uname -a)
 EOF
 
   lifecycle {
@@ -32,8 +35,6 @@ resource "aws_autoscaling_group" "asg" {
   health_check_type    = var.health_check_type
   vpc_zone_identifier  = [var.vpc_zone_identifier]
   load_balancers       = [var.load_balancers]
-  #load_balancers       = [aws_elb.web.name]
-  #health_check_type   = "ELB"
 
   tag {
     key                 = "Name"

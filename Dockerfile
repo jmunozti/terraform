@@ -24,6 +24,9 @@ RUN apt update && \
     apt install zip -y && \
     apt install graphviz -y && \
     apt install curl -y && \
+    apt install -y python-boto && \
+    apt install -y ansible && \
+    apt install -y nano && \
     wget https://releases.hashicorp.com/terraform/0.12.24/terraform_0.12.24_linux_amd64.zip && \
     unzip terraform*.zip && \
     rm terraform*.zip && \
@@ -32,12 +35,14 @@ RUN apt update && \
     mkdir /devops/modules && \
     mkdir /devops/task1 && \
     mkdir /devops/docs && \
+    mkdir /devops/ansible && \
     curl -Lo /devops/terraform-docs https://github.com/terraform-docs/terraform-docs/releases/download/v0.10.0-rc.1/terraform-docs-v0.10.0-rc.1-$(uname | tr '[:upper:]' '[:lower:]')-amd64 && \
     chmod +x /devops/terraform-docs
 
 # Define working directory.
 WORKDIR /devops/task1
 COPY modules /devops/modules
+COPY ansible /devops/ansible
 COPY task1/ /devops/task1
 COPY task1/run_task1.sh/ /devops/task1
 

@@ -1,4 +1,5 @@
 #!/bin/bash
+
 echo "Begin"
 echo "============================================"
 
@@ -13,7 +14,7 @@ terraform plan
 terraform apply -input=false -auto-approve
 
 #Generate documentation
-terraform graph | dot -Tsvg > graph.svg
+terraform graph | dot -Tsvg > /devops/docs/graph.svg
 
 for i in $(ls /devops/modules); do
 	 /devops/terraform-docs markdown /devops/modules/$i > /devops/docs/$i.md
