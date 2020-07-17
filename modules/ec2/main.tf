@@ -18,6 +18,6 @@ sudo systemctl enable awslogsd.service
 EOF
 
   tags = {
-    Name = "EC2_Instance"
+    Name = format("%s_ec2", var.environment)
   }
 }

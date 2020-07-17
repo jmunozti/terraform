@@ -10,6 +10,7 @@ module "vpc" {
   vpc_id              = module.vpc.vpc_id
   public_subnet_cidr  = var.public_subnet_cidr
   private_subnet_cidr = var.private_subnet_cidr
+  environment         = var.environment
 }
 
 module "bastion" {
@@ -17,6 +18,7 @@ module "bastion" {
   subnet_id         = module.vpc.public_subnet_id
   ssh_key           = var.ssh_key
   internal_networks = [var.private_subnet_cidr]
+  environment       = var.environment
 }
 
 module "ec2" {
@@ -27,6 +29,15 @@ module "ec2" {
   ec2_count     = var.ec2_count
   instance_type = var.instance_type
   subnet_id     = module.vpc.private_subnet_id
+  environment   = var.environment
+}
+
+module "elb" {
+  source      = "../modules/elb"
+  vpc_id      = module.vpc.vpc_id
+  subnet_id   = module.vpc.private_subnet_id
+  environment = var.environment
+  internal    = var.elb_is_internal
 }
 
 module "asg" {
@@ -40,6 +51,8 @@ module "asg" {
   vpc_zone_identifier = module.vpc.private_subnet_id
   health_check_type   = var.health_check_type
   internal_networks   = [var.private_subnet_cidr]
+  load_balancers      = module.elb.elb_name
+  environment         = var.environment
 }
 
 terraform {

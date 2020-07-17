@@ -7,3 +7,5 @@ ssh_key             = "ssh-key"
 instance_type       = "t2.micro"
 ami_id              = "ami-08f3d892de259504d"
 ec2_count           = "1"
+environment         = "staging"
+elb_is_internal     = true

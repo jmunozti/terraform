@@ -22,15 +22,18 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN apt update && \
     apt install wget -y && \
     apt install zip -y && \
-    apt install graphviz -y && \    
+    apt install graphviz -y && \
+    apt install curl -y && \
     wget https://releases.hashicorp.com/terraform/0.12.24/terraform_0.12.24_linux_amd64.zip && \
     unzip terraform*.zip && \
     rm terraform*.zip && \
     mv terraform /usr/local/bin && \
     mkdir /devops && \
     mkdir /devops/modules && \
-    mkdir /devops/task1
-
+    mkdir /devops/task1 && \
+    mkdir /devops/docs && \
+    curl -Lo /devops/terraform-docs https://github.com/terraform-docs/terraform-docs/releases/download/v0.10.0-rc.1/terraform-docs-v0.10.0-rc.1-$(uname | tr '[:upper:]' '[:lower:]')-amd64 && \
+    chmod +x /devops/terraform-docs
 
 # Define working directory.
 WORKDIR /devops/task1

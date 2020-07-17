@@ -30,7 +30,7 @@ variable "vpc_zone_identifier" {
 }
 
 variable "health_check_type" {
-  default = "EC2"
+  default = "ELB"
 }
 
 variable "allowed_hosts" {
@@ -38,7 +38,16 @@ variable "allowed_hosts" {
   type        = list(string)
   default     = ["0.0.0.0/0"]
 }
+
 variable "internal_networks" {
   type        = list(string)
   description = "Internal network CIDR blocks."
+}
+
+variable "load_balancers" {
+  description = "Elasctic Load Balancers to use."
+}
+
+variable "environment" {
+  default = "The Environment name to use."
 }

@@ -7,6 +7,11 @@ resource "aws_launch_configuration" "asg-launch-config" {
 
   user_data = <<EOF
 #!/bin/bash
+#Installing nginx
+sudo yum install nginx
+sudo service nginx start
+sudo chkconfig nginx on
+
 #Sending /var/log/messages to CloudWatch because it records a variety of events,
 #such as the system error messages, system startups and shutdowns, change in the network configuration, etc.
 sudo yum update -y
@@ -26,13 +31,13 @@ resource "aws_autoscaling_group" "asg" {
   max_size             = var.max_size
   health_check_type    = var.health_check_type
   vpc_zone_identifier  = [var.vpc_zone_identifier]
+  load_balancers       = [var.load_balancers]
   #load_balancers       = [aws_elb.web.name]
   #health_check_type   = "ELB"
-  #vpc_zone_identifier = ["${aws_subnet.default.id}"]
 
   tag {
     key                 = "Name"
-    value               = "ASG"
+    value               = format("%s_asg", var.environment)
     propagate_at_launch = true
   }
 }
